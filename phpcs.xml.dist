@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset name="Coding Standard">
+    <description>coding standard</description>
+
+    <file>./</file>
+
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>node_modules/</exclude-pattern>
+    <exclude-pattern>public/</exclude-pattern>
+    <exclude-pattern>resources/</exclude-pattern>
+    <exclude-pattern>storage/</exclude-pattern>
+    <exclude-pattern>vendor/</exclude-pattern>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="75"/>
+    <arg value="s"/><!-- Specify the coding standard violation in output -->
+
+    <rule ref="PSR12"/><!-- https://www.php-fig.org/psr/psr-12/ -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <!--
+            Allow non camelCase method names in tests so that we can write long
+            test_method_names_in_snake_case, making them easier to read.
+        -->
+        <exclude-pattern>tests/</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <!--
+            Migrations cannot have namespaces, due to how they are executed
+            by Laravel.
+        -->
+        <exclude-pattern>database/migrations/</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <!-- Allow long lines in seeders, as they contain long TEXT blobs. -->
+        <exclude-pattern>database/seeders/</exclude-pattern>
+    </rule>
+</ruleset>
